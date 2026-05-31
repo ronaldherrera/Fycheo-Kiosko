@@ -4,13 +4,13 @@
   "description": "Kiosko de fichaje y gestión de horarios para empleados.",
   "icons": [
     {
-      "src": "favicon.png",
+      "src": "favicon-movil.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "favicon.png",
+      "src": "favicon-movil.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
