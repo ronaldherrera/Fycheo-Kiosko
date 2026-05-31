@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fycheo-app-v1';
+const CACHE_NAME = 'fycheo-kiosko-v2';
 const ASSETS = [
   './',
   './index.html',
