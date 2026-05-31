@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { Lock, Mail, Loader2 } from 'lucide-react';
 
@@ -8,23 +8,60 @@ export default function LoginScreen() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const savedError = sessionStorage.getItem('loginError');
+    if (savedError) {
+      setError(savedError);
+      sessionStorage.removeItem('loginError');
+    }
+  }, []);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (error) throw error;
+
+      if (data.user) {
+        // Verificar si es propietario de alguna empresa
+        const { data: ownedCompanies } = await supabase
+          .from('companies')
+          .select('id')
+          .eq('owner_id', data.user.id)
+          .limit(1);
+
+        // Verificar si tiene rol de admin, owner o manager en alguna empresa
+        const { data: memberRoles } = await supabase
+          .from('company_members')
+          .select('role')
+          .eq('user_id', data.user.id)
+          .in('role', ['admin', 'manager', 'owner'])
+          .limit(1);
+
+        const hasAdminAccess = (ownedCompanies && ownedCompanies.length > 0) || (memberRoles && memberRoles.length > 0);
+
+        if (!hasAdminAccess) {
+          sessionStorage.setItem('loginError', 'No tienes permisos. Para configurar el kiosko, ponte en contacto con tu administrador.');
+          await supabase.auth.signOut();
+          return;
+        }
+      }
       
     } catch (err: any) {
-      setError(err.message === 'Invalid login credentials' 
-        ? 'Credenciales incorrectas' 
-        : 'Error al iniciar sesión');
+      if (err.message === 'Solo los administradores pueden iniciar sesión en el Kiosko') {
+        setError(err.message);
+      } else {
+        setError(err.message === 'Invalid login credentials' 
+          ? 'Credenciales incorrectas' 
+          : 'Error al iniciar sesión');
+      }
     } finally {
       setLoading(false);
     }
