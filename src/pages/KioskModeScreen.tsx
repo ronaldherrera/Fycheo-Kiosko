@@ -1128,7 +1128,7 @@ export default function KioskModeScreen() {
   const canPermissionEnd = mode === "others";
 
   return (
-    <div className="h-screen w-screen bg-slate-900 flex text-slate-100 overflow-hidden">
+    <div className="h-dvh w-screen bg-slate-900 flex text-slate-100 overflow-hidden">
       {/* Left Sidebar - Clock and Info */}
       {(!employee && !successMessage) && (
         <div className="w-72 shrink-0 bg-slate-800 p-6 flex flex-col justify-between border-r border-slate-700 shadow-2xl z-10 relative overflow-hidden animate-in slide-in-from-left duration-500">

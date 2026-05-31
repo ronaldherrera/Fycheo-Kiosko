@@ -1,7 +1,7 @@
 {
-  "short_name": "Fycheo App",
-  "name": "Fycheo - Fichajes y Horarios",
-  "description": "Aplicación de control horario y gestión de turnos de Fycheo para empleados.",
+  "short_name": "Fycheo Kiosko",
+  "name": "Fycheo Kiosko - Control Horario",
+  "description": "Kiosko de fichaje y gestión de horarios para empleados.",
   "icons": [
     {
       "src": "favicon.png",
@@ -16,9 +16,10 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
-  "background_color": "#101622",
+  "start_url": "/",
+  "scope": "/",
+  "background_color": "#0f172a",
   "theme_color": "#135bec",
-  "display": "standalone",
-  "orientation": "portrait"
+  "display": "fullscreen",
+  "orientation": "landscape"
 }
