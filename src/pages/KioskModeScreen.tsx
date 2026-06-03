@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
-import { Clock, LogOut, CheckCircle2, AlertCircle, Loader2, Fingerprint } from 'lucide-react';
+import { LogOut, CheckCircle2, AlertCircle, Loader2, Fingerprint } from 'lucide-react';
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay } from 'date-fns';
 import { es } from 'date-fns/locale';
 
