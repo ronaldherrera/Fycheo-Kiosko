@@ -40,4 +40,4 @@ jobs:
           password: ${{ secrets.HOSTINGER_PASS }}
           local-dir: ./dist/
           server-dir: ${{ secrets.HOSTINGER_TARGET }}
-          protocol: ftps
+          protocol: ftp
