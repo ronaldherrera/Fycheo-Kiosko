@@ -148,7 +148,7 @@ export default function KioskModeScreen() {
    const [absencesList, setAbsencesList] = useState<any[]>([]);
    const [loadingAbsences, setLoadingAbsences] = useState(false);
    const [absencesFilter, setAbsencesFilter] = useState<'all' | 'pending' | 'approved' | 'enjoyed' | 'rejected'>('all');
-   const [logoutCountdown, setLogoutCountdown] = useState(30);
+   const [logoutCountdown, setLogoutCountdown] = useState(15);
 
    // Estados del Calendario (Igual que en la App móvil)
    const [currentDate, setCurrentDate] = useState<Date>(() => new Date());
@@ -445,10 +445,8 @@ export default function KioskModeScreen() {
     return () => clearInterval(timer);
   }, []);
 
-  // Auto-logout por inactividad (30s)
+  // Auto-logout por inactividad (15s)
   useEffect(() => {
-    // DESACTIVADO TEMPORALMENTE
-    return;
     let timeoutId: ReturnType<typeof setTimeout>;
     let intervalId: ReturnType<typeof setInterval>;
 
@@ -456,7 +454,7 @@ export default function KioskModeScreen() {
       if (employee && !successMessage) {
         clearTimeout(timeoutId);
         clearInterval(intervalId);
-        setLogoutCountdown(30);
+        setLogoutCountdown(15);
         
         intervalId = setInterval(() => {
           setLogoutCountdown(prev => {
@@ -473,7 +471,7 @@ export default function KioskModeScreen() {
           setDni('');
           setMonthEntries([]);
           setActiveTab('dashboard');
-        }, 30000); // 30 seconds
+        }, 15000); // 15 seconds
       }
     };
 
@@ -1156,9 +1154,8 @@ export default function KioskModeScreen() {
           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
           <div>
-            <div className="flex items-center gap-3 mb-6">
-              <img src="/icono-kiosko.svg" alt="Fycheo" className="w-9 h-9 rounded-xl shadow-lg shadow-primary/20" />
-              <span className="text-base font-bold tracking-tight text-white">Fycheo Kiosko</span>
+            <div className="flex items-center mb-6 h-9">
+              <img src="https://www.fycheo.es/brand/logotipo_ksk_bg-dark.svg" alt="Fycheo Kiosko" className="h-8 object-contain" />
             </div>
 
             <div className="space-y-1">
